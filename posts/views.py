@@ -4,6 +4,7 @@ from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PostForm, CommentForm
 from .models import Post, Group, User, Follow
+from django.contrib import messages
 
 
 def get_paginator(request, data: QuerySet):
