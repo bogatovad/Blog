@@ -1,0 +1,18 @@
+{% extends "base.html" %} 
+{% block title %} Профайл {% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+<main role="main" class="container">
+        <div class="row">
+                {% include 'info_author.html' %}
+                <div class="col-md-9">                
+                        {% for post in page %}
+                                {% include 'post_item.html' with comment=True %}
+                        {% endfor %}
+                        {% if page.has_other_pages %}
+                        {% include "paginator.html" with items=page paginator=paginator %}
+                        {% endif %}
+                </div>
+        </div>
+</main>
+{% endblock %}
