@@ -35,7 +35,11 @@
                     {% endif %}
                     {% else %}
                     <div style="margin-left:100px">
-                    {{ form.image }}
+                    {% for item in form.image %}
+                        
+                            {{ item }}
+                        
+                    {% endfor %}
                     </div>
                 {% endif %}
             </div>

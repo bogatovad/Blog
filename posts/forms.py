@@ -1,10 +1,14 @@
 from django import forms
+from django.forms import widgets
 from .models import Post, Group, Comment
 from django.core.validators import ValidationError
 from django.forms import Textarea
+from django.forms import ImageField
 
 
 class PostForm(forms.ModelForm):
+    image = ImageField(widget=widgets.FileInput)
+
     class Meta:
         model = Post
         fields = ('group', 'text', 'image')
