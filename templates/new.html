@@ -10,16 +10,19 @@
         <div class="card-header">
             {% if post %}
                 <p style="text-align: center;color: cornflowerblue;font-size: 30px;">Редактировать запись</p>
+                {% include 'navigate.html' %}
                 <form method="post" enctype="multipart/form-data" action="{% url 'post_edit' post.author.username post.id %}">
-                {% if form.image.value %}
-                <img class="card-img-top" src="{% get_media_prefix %}{{ form.image.value }}" alt="Card image cap" height="300px">
-                {% endif %}
             {% else %}
                 <p style="text-align: center;color: cornflowerblue;font-size: 30px;">Добавить запись</p>
-                <form method="post" enctype="multipart/form-data" action="{% url 'new_post' %}"></form>
+                <form method="post" enctype="multipart/form-data" action="{% url 'new_post' %}">
             {% endif %}
         </div>
         <div class="card-body">
+            {% if post %}
+            {% if form.image.value %}
+                <img class="card-img-top" src="{% get_media_prefix %}{{ form.image.value }}" alt="Card image cap" height="300px">
+                {% endif %}
+            {% endif %}
             {% csrf_token %}
             {% for field in form %}
             <div class="form-group row">

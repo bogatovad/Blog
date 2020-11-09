@@ -55,7 +55,6 @@ def new_post(request):
             post.author = request.user
             post.save()
             return redirect('index')
-
     return render(request, 'new.html', {'form': form})
 
 
