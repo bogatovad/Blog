@@ -7,8 +7,6 @@ from django.forms import ImageField
 
 
 class PostForm(forms.ModelForm):
-    image = ImageField(widget=widgets.FileInput)
-
     class Meta:
         model = Post
         fields = ('group', 'text', 'image')
@@ -21,7 +19,7 @@ class PostForm(forms.ModelForm):
             'group': ("Группа,в которую"
                       " публикуется сообщение"),
             "text": "Ваше собщение",
-            "image": "Картинка к посту", 
+            "image": "Картинка к посту",
         }
 
     def clean_group(self):

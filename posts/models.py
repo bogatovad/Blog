@@ -48,3 +48,7 @@ class Follow(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE,
         related_name="following")
+    constraints = [
+        models.UniqueConstraint(
+            fields=['user', 'author', ], name='follow_obj'),
+    ]

@@ -30,7 +30,7 @@
                 {% if forloop.counter != 3 %}
                 {{ field|addclass:"form-control" }}
                 {% else %}
-                {{ field|addclass:"form-control-file col-md-7" }}
+                {{ field|addclass:"form-control-file col-md-7"}}
                 {% endif %}
                 {% if field.help_text %}
                 <small id="{{ field.id_for_label }}-help" class="form-text text-muted"><pre style="color: darkgreen;"> {{ field.help_text|safe }}</pre></small>
