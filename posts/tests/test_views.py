@@ -1,3 +1,5 @@
+from tests.fixtures.fixture_data import group
+import posts
 from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
 from posts.models import Comment, Follow, Post, Group
@@ -276,11 +278,13 @@ class ViewsTests(TestCase):
     @count_object_plus_one(Post)
     def test_create_post_with_img(self):
         """Test create post with image on all pages."""
-        Post.objects.create(text='Этот с картинкой!',
-                            author=self.user, image=self.image)
+        post = Post.objects.create(text='Этот с картинкой!',
+                                   author=self.user,
+                                   group=self.group_new,
+                                   image=self.image)
         cache.clear()
-        response = self.authorized_client.get(reverse('index'))
-        self.assertContains(response, '<img class="card-img')
+        self.authorized_client.get(reverse('index'))
+        self.check_publication('<img class="card-img', post.id)
 
     def test_create_post_with_not_img_format(self):
         """Test create posts with wrong image format."""
