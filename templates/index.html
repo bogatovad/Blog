@@ -19,16 +19,8 @@
     {% endif %}
 {% endblock %}
 {% block groups %}
-        <h1 class="navbar-brand">[Сообщества]</h1>
-        <hr>
-        {% for group in groups %}
-        <p># <a href="{% url 'group' group.slug %}">{{ group.slug }}</a></p>
-        {% endfor %}
+       {% include 'side_groups.html' %}
 {% endblock %}
 {% block users %}
-        <h1 class="navbar-brand">[Пользователи]</h1>
-        <hr>
-        {% for user in users %}
-        <p># <a href="{% url 'profile' user.username %}">{{ user.username }}</a></p>
-        {% endfor %}
+        {% include 'side_users.html' %}
 {% endblock %}

@@ -1,74 +1,84 @@
 <div class="col-md-3 mb-3 mt-1">
-    <div class="card">
-            <div class="card-body">
-                    <div class="h2">
-                        {{ author.get_full_name }}
-                    </div>
-                    <div class="h3 text-muted">
-                         @{{ author.username }}
-                    </div>
-            </div>
-            <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                            <div class="h6 text-muted">
-                            Подписчиков: {{ author.following.count }} <br />
-                            Подписан: {{ author.follower.count }}
-                            </div>
-                    </li>
-                    <li class="list-group-item">
-                            <div class="h6 text-muted">
-                                Записей: {{ author.posts.all.count }}
-                            </div>
-                    </li>
-                    {% if author != user %}
-                    <li class="list-group-item">
-                                {% if following %}
-                                <a class="btn btn-lg btn-light" 
-                                        href="{% url 'profile_unfollow' author.username %}" role="button"> 
-                                        Отписаться 
-                                </a> 
-                                {% else %}
-                                <a class="btn btn-lg btn-primary" 
-                                        href="{% url 'profile_follow' author.username %}" role="button">
-                                Подписаться 
-                                </a>
-                                {% endif %}
+	<div class="card">
+		<div class="card-body">
+			<div class="h2">
+				{{ author.get_full_name }}
+			</div>
+			<div class="h3 text-muted">
+				@{{ author.username }}
+			</div>
+		</div>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">
+				<div class="h6 text-muted">
+					Подписчиков: {{ author.following.count }} <br />
+					Подписан: {{ author.follower.count }}
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div class="h6 text-muted">
+					Записей: {{ author.posts.all.count }}
+				</div>
                         </li>
-                        {% if not message %}
-                        <li class="list-group-item">
-                                <a class="btn btn-lg btn-light" 
-                                href="{% url 'message' author.username %}" role="button"> Отправить сообщение </a> 
-                        </li>
-                        {% endif %}
-                {% endif %}
-            </ul>
-    </div>
-    {% if author == user %}
-    <div class="card">
-        <div class="card-body">
-                <div class="h3">
-                   Мои подписки
-                </div>
-                <hr>
-                {% for item in author.follower.all %}
-                <div class="h6 text-muted">
-                     @<a href="{% url 'profile' item.author.username %}">{{ item.author.username }}</a>
-                </div>
-                {% endfor %}
+			{% if author != user %}
+			<li class="list-group-item">
+				{% if following %}
+				<a class="btn btn-lg btn-light" 
+					href="{% url 'profile_unfollow' author.username %}" role="button"> 
+				Отписаться 
+				</a> 
+				{% else %}
+				<a class="btn btn-lg btn-primary"
+					href="{% url 'profile_follow' author.username %}" role="button">
+				Подписаться 
+				</a>
+				{% endif %}
+			</li>
+			{% if not message %}
+			<li class="list-group-item">
+				<a class="btn btn-outline-warning" 
+					href="{% url 'message' author.username %}" role="button"> Отправить сообщение </a> 
+			</li>
+			{% endif %}
+			{% endif %}
+		</ul>
         </div>
+        {% if author.follower.count %}
+	<div class="card" style="margin-top: 5px;">
+		<div class="card-body">
+			<div class="h3">
+				{% if author == user %}
+				Мои подписки
+				{% else %}
+				Подписки 
+				{% endif %}
+			</div>
+			<hr>
+			{% for item in author.follower.all %}
+			<div class="h6 text-muted">
+				@<a href="{% url 'profile' item.author.username %}">{{ item.author.username }}</a>
+			</div>
+			{% endfor %}
+		</div>
         </div>
-        <div class="card">
-                <div class="card-body">
-                        <div class="h3">
-                           Мои подписчики
-                        </div>
-                        <hr>
-                        {% for item in author.following.all %}
-                        <div class="h6 text-muted">
-                             @<a href="{% url 'profile' item.user.username %}">{{ item.user.username }}</a>
-                        </div>
-                        {% endfor %}
-                </div>
-                </div>
+        {% endif %}
+        {% if author.following.count %}
+	<div class="card" style="margin-top: 5px;">
+		<div class="card-body">
+			<div class="h3">
+				{% if author == user %}
+				Мои подписчики
+				{% else %}
+				Подписчики
+				{% endif %}
+			</div>
+			<hr>
+			{% for item in author.following.all %}
+			<div class="h6 text-muted">
+				@<a href="{% url 'profile' item.user.username %}">{{ item.user.username }}</a>
+			</div>
+			{% endfor %}
+		</div>
+        </div>
         {% endif %}
 </div>

@@ -14,3 +14,9 @@
         {% include "paginator.html" with items=page paginator=paginator %}
     {% endif %}
 {% endblock %}
+{% block groups %}
+       {% include 'side_groups.html' %}
+{% endblock %}
+{% block users %}
+        {% include 'side_users.html' %}
+{% endblock %}

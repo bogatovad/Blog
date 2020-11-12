@@ -1,0 +1,11 @@
+<h1 class="navbar-brand" style="color: gray;">[Мои подписчики]</h1>
+<hr>
+{% for following in request.user.following.all %}
+<p><a href="{% url 'profile' following.user.username %}">@{{ following.user.username }}</a></p>
+{% endfor %}
+<h1 class="navbar-brand" style="color: gray;">[Пользователи]</h1>
+<hr>
+{% for user in users %}
+<p># <a href="{% url 'profile' user.username %}">{{ user.username }}</a></p>
+{% endfor %}
+

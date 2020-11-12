@@ -57,3 +57,18 @@ class MessageForm(forms.ModelForm):
         widgets = {
             'text': Textarea(attrs={'rows': 3}),
         }
+
+
+class GroupForm(forms.ModelForm):
+    """"""
+    class Meta:
+        model = Group
+        fields = ('title', 'slug', 'description')
+        labels = {
+            "title": "Название сообщества",
+            "slug": "Короткое имя",
+            "description": "Описание",
+        }
+        widgets = {
+            'description': Textarea(attrs={'rows': 5}),
+        }

@@ -3,6 +3,11 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path(
+        'new_group/',
+        views.new_group,
+        name='new_group',
+    ),
     path("follow/", views.follow_index, name="follow_index"),
     path('<str:username>/message/', views.message, name='message'),
     path("find_post/", views.find_post, name='find_post'),
@@ -38,5 +43,5 @@ urlpatterns = [
         "<str:username>/send_message/",
         views.send_message,
         name='send_message',
-    )
+    ),
 ]

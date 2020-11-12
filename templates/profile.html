@@ -5,7 +5,11 @@
 <main role="main" class="container">
         <div class="row">
                 {% include 'info_author.html' %}
-                <div class="col-md-9">             
+                <div class="col-md-9">  
+                        {% if page.count == 0 %}
+                        <p>Пока что у автора <b>{{ author.get_full_name }}</b> нет постов, но скоро
+                        они обязательно появяться </p>
+                        {% endif %}           
                         {% for post in page %}
                                 {% include 'post_item.html' with comment=True %}
                         {% endfor %}
@@ -15,8 +19,4 @@
                 </div>
         </div>
 </main>
-{% endblock %}
-{% block groups %}
-{% endblock %}
-{% block users %}
 {% endblock %}

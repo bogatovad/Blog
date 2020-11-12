@@ -4,7 +4,7 @@
 {% block content %}
 <main role="main" class="container">
     <div class="row">
-        {% include 'info_author.html' %}
+        {% include 'info_author.html' with message=True %}
         <div class="col-md-9">
             {% include 'chat.html' %}
         </div>

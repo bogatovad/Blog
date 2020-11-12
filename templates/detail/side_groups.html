@@ -1,0 +1,7 @@
+<h1 class="navbar-brand" style="color: gray;">[Сообщества]</h1>
+<br>
+<a href="{% url 'new_group' %}" type="button" class="btn btn-outline-secondary">Создать</a>
+<hr>
+{% for group in groups %}
+<p># <a href="{% url 'group' group.slug %}">{{ group.slug }}</a></p>
+{% endfor %}
