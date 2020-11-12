@@ -6,11 +6,13 @@
 {% load static %}
 {% block content%}
 <div class="col-sm-6" style="margin-left: 250px;">
-    <div class="card" >
+    {% if edit %}
+    {% include 'navigate.html' %}
+    {% endif %}
+    <div class="card">
         <div class="card-header">
             {% if post %}
                 <p style="text-align: center;color: cornflowerblue;font-size: 30px;">Редактировать запись</p>
-                {% include 'navigate.html' %}
                 <form method="post" enctype="multipart/form-data" action="{% url 'post_edit' post.author.username post.id %}">
             {% else %}
                 <p style="text-align: center;color: cornflowerblue;font-size: 30px;">Добавить запись</p>
@@ -30,7 +32,7 @@
                 {% if forloop.counter != 3 %}
                 {{ field|addclass:"form-control" }}
                 {% else %}
-                {{ field|addclass:"form-control-file col-md-7"}}
+                {{ field|addclass:"form-control-file col-md-7" }}
                 {% endif %}
                 {% if field.help_text %}
                 <small id="{{ field.id_for_label }}-help" class="form-text text-muted"><pre style="color: darkgreen;"> {{ field.help_text|safe }}</pre></small>

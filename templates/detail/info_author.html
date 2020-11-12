@@ -22,7 +22,7 @@
                     </li>
                     {% if author != user %}
                     <li class="list-group-item">
-                            {% if following %}
+                                {% if following %}
                                 <a class="btn btn-lg btn-light" 
                                         href="{% url 'profile_unfollow' author.username %}" role="button"> 
                                         Отписаться 
@@ -34,7 +34,41 @@
                                 </a>
                                 {% endif %}
                         </li>
+                        {% if not message %}
+                        <li class="list-group-item">
+                                <a class="btn btn-lg btn-light" 
+                                href="{% url 'message' author.username %}" role="button"> Отправить сообщение </a> 
+                        </li>
                         {% endif %}
+                {% endif %}
             </ul>
     </div>
+    {% if author == user %}
+    <div class="card">
+        <div class="card-body">
+                <div class="h3">
+                   Мои подписки
+                </div>
+                <hr>
+                {% for item in author.follower.all %}
+                <div class="h6 text-muted">
+                     @<a href="{% url 'profile' item.author.username %}">{{ item.author.username }}</a>
+                </div>
+                {% endfor %}
+        </div>
+        </div>
+        <div class="card">
+                <div class="card-body">
+                        <div class="h3">
+                           Мои подписчики
+                        </div>
+                        <hr>
+                        {% for item in author.following.all %}
+                        <div class="h6 text-muted">
+                             @<a href="{% url 'profile' item.user.username %}">{{ item.user.username }}</a>
+                        </div>
+                        {% endfor %}
+                </div>
+                </div>
+        {% endif %}
 </div>

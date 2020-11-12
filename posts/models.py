@@ -52,3 +52,14 @@ class Follow(models.Model):
         models.UniqueConstraint(
             fields=['user', 'author', ], name='follow_obj'),
     ]
+
+
+class Message(models.Model):
+    text = models.TextField(blank=True, null=True, default=None)
+    created = models.DateTimeField("date send message", auto_now_add=True)
+    user_to = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name="messages_to")
+    user_from = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name="messages_from")

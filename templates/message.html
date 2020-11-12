@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Сообщения{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+<main role="main" class="container">
+    <div class="row">
+        {% include 'info_author.html' %}
+        <div class="col-md-9">
+            {% include 'chat.html' %}
+        </div>
+    </div>
+</main>
+{% endblock %}

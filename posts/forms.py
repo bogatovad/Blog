@@ -1,5 +1,6 @@
+from attr import fields
 from django import forms
-from .models import Post, Group, Comment
+from .models import Post, Group, Comment, Message, models
 from django.core.validators import ValidationError
 from django.forms import Textarea
 
@@ -11,7 +12,7 @@ class PostForm(forms.ModelForm):
         labels = {
             "group": "Группа",
             "text": "Текст",
-            "image": "Изображение",
+            "image": "Картинка",
         }
         help_texts = {
             'group': ("Группа,в которую"
@@ -43,6 +44,16 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('text',)
+        widgets = {
+            'text': Textarea(attrs={'rows': 3}),
+        }
+
+
+class MessageForm(forms.ModelForm):
+    """"""
+    class Meta:
+        model = Message
+        fields = ('text', 'user_to', 'user_from')
         widgets = {
             'text': Textarea(attrs={'rows': 3}),
         }

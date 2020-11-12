@@ -1,8 +1,9 @@
-<ul class="nav nav-tabs card-header-tabs">
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'post' post.author.username post.id %}">К посту</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'profile_follow' post.author.username %}">Избранные авторы</a>
-    </li>
-</ul>
+<div class="card">
+  <div class="card-header" style="background-color:silver">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item" style="background-color: white;">
+        <a class="nav-link" style="color: black;" href="{% url 'post' post.author.username post.id %}">К посту</a>
+      </li>
+    </ul>
+  </div>
+</div>

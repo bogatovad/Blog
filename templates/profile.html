@@ -5,7 +5,7 @@
 <main role="main" class="container">
         <div class="row">
                 {% include 'info_author.html' %}
-                <div class="col-md-9">                
+                <div class="col-md-9">             
                         {% for post in page %}
                                 {% include 'post_item.html' with comment=True %}
                         {% endfor %}
@@ -15,4 +15,8 @@
                 </div>
         </div>
 </main>
+{% endblock %}
+{% block groups %}
+{% endblock %}
+{% block users %}
 {% endblock %}

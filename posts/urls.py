@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("follow/", views.follow_index, name="follow_index"),
+    path('<str:username>/message/', views.message, name='message'),
+    path("find_post/", views.find_post, name='find_post'),
     path("group/<slug:slug>/", views.group_posts, name='group'),
     path("new/", views.new_post, name="new_post"),
     path('<str:username>/', views.profile, name='profile'),
@@ -27,4 +29,14 @@ urlpatterns = [
         "<str:username>/unfollow/",
         views.profile_unfollow,
         name="profile_unfollow"),
+    path(
+        "<str:username>/<int:post_id>/delete",
+        views.post_delete,
+        name="post_delete",
+    ),
+    path(
+        "<str:username>/send_message/",
+        views.send_message,
+        name='send_message',
+    )
 ]

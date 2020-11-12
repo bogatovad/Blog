@@ -5,6 +5,7 @@
 {% block content %}
 
 {% include "menu.html" with follow=True %}
+{% include "search.html" %}
     {% for post in page %}
         {% include "post_item.html" with post=post comment=True %}
         {% if not forloop.last %}<hr>{% endif %}

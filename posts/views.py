@@ -1,9 +1,13 @@
+from re import U
+from tests.fixtures.fixture_user import user
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.db.models.query import QuerySet
+from django.http import request
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PostForm, CommentForm
-from .models import Post, Group, User, Follow
+from .models import Post, Group, User, Follow, Message
+import operator
 
 
 def get_paginator(request, data: QuerySet):
@@ -24,10 +28,15 @@ def index(request):
     """This view shows the general site's page."""
     posts = Post.objects.all()
     page, paginator = get_paginator(request, posts)
+    groups = Group.objects.all()
+    users = User.objects.all()
     return render(
         request,
         'index.html',
-        {'page': page, 'paginator': paginator}
+        {'page': page,
+         'paginator': paginator,
+         'groups': groups,
+         'users': users}
     )
 
 
@@ -74,6 +83,7 @@ def profile(request, username: str):
 
 def post_view(request, username, post_id):
     """This view shows one post by post's id."""
+    print(request.path)
     post = get_object_or_404(Post, id=post_id)
     form = CommentForm()
     is_follow = post.author.following.filter(user=request.user.id).exists()
@@ -95,7 +105,9 @@ def post_edit(request, username: str, post_id: int):
         if form.is_valid():
             form.save()
             return redirect('post', username, post_id)
-    return render(request, 'new.html', {"form": form, 'post': post})
+    return render(request, 'new.html', {"form": form,
+                                        'post': post,
+                                        'edit': True})
 
 
 def page_not_found(request, exception):
@@ -154,3 +166,43 @@ def profile_unfollow(request, username):
     request.user.follower.filter(
         author=User.objects.get(username=username)).delete()
     return redirect("follow_index")
+
+
+@login_required
+def post_delete(request, username, post_id):
+    author = User.objects.get(username=username)
+    if author == request.user:
+        author.posts.get(id=post_id).delete()
+    return redirect('index')
+
+
+def find_post(request):
+    query = request.GET.get('text')
+    posts = Post.objects.filter(text__icontains=query)
+    page, paginator = get_paginator(request, posts)
+    return render(
+        request,
+        'index.html',
+        {'page': page, 'paginator': paginator, 'find': True, 'query': query}
+    )
+
+
+@login_required
+def message(request, username):
+    author = get_object_or_404(User, username=username)
+    messages_from = author.messages_to.filter(user_from=request.user)
+    messages_to = request.user.messages_to.filter(user_from=author)
+    messages = sorted(messages_to | messages_from,
+                      key=operator.attrgetter('created'))
+    return render(request, 'message.html', {'author': author,
+                                            'messages': messages})
+
+
+@login_required
+def send_message(request, username):
+    author = get_object_or_404(User, username=username)
+    Message.objects.create(
+        user_to=request.user,
+        user_from=author,
+        text=request.POST.get('message'))
+    return redirect('message', author.username)

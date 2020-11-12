@@ -1,0 +1,64 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/chat.css' %}">
+<div class="container">
+	<h3 class=" text-center">Сообщения</h3>
+	<div class="messaging">
+		<div class="inbox_msg">
+			<div class="inbox_people">
+				<div class="headind_srch">
+					<div class="recent_heading">
+						<h4>Собеседник</h4>
+					</div>
+					<div class="srch_bar">
+						<div class="stylish-input-group">
+              <form method="GET">
+                <input type="text" class="search-bar"  placeholder="Search" >
+                <span class="input-group-addon">
+                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                </span> 
+              </form>
+						</div>
+					</div>
+				</div>
+				<div class="inbox_chat">
+					<!-- Поиск сообщений собеседника -->
+				</div>
+			</div>
+			<div class="mesgs">
+				<div class="msg_history">
+					{% for msg in messages %}
+					<!-- Одно сообщение -->
+					{% if msg.user_to == request.user %}
+					<div class="incoming_msg">
+						<div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+						<div class="received_msg">
+							<div class="received_withd_msg">
+								<p> {{ author.get_full_name }} : {{ msg.text }}</p>
+								<span class="time_date">{{ msg.created }}</span>
+							</div>
+						</div>
+					</div>
+					{% else %}
+					<div class="outgoing_msg">
+						<div class="sent_msg">
+							<p> {{ request.user.get_full_name }} : {{ msg.text }} </p>
+							<span class="time_date">{{ msg.created }}</span> 
+						</div>
+					</div>
+					{% endif %}
+					{% endfor %}
+					<!-- Одно сообщение -->
+				</div>
+				<div class="type_msg">
+					<div class="input_msg_write">
+						<form method="POST" action="{% url 'send_message' author.username %}">
+							{% csrf_token %}
+							<input name="message" type="text" class="write_msg" placeholder="Type a message" />
+							<button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true">></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
