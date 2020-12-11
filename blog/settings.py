@@ -28,7 +28,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'sorl.thumbnail',
     "django.contrib.staticfiles",
-    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -39,10 +38,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-ROOT_URLCONF = 'yatube.urls'
+ROOT_URLCONF = 'blog.urls'
 TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 TEMPLATES_DIR_DETAIL = os.path.join(BASE_DIR, "templates/detail")
 TEMPLATES_DIR_FLATPAGES = os.path.join(BASE_DIR, "templates/flatpages")
@@ -69,7 +67,7 @@ CACHES = {
     }
 } 
 
-WSGI_APPLICATION = 'yatube.wsgi.application'
+WSGI_APPLICATION = 'blog.wsgi.application'
 
 DATABASES = {
     'default': {
