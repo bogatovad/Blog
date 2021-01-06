@@ -2,7 +2,7 @@
 {% block title %} Последние обновления {% endblock %}
 {% block header %}
         {% if find %}
-        По запросу {{ query }} найдено {{ page.count }} постов 
+        По запросу {{ query }} найдено {{ page | length }} постов 
         {% else %}
         Последние обновления на сайте
         {% endif %}
